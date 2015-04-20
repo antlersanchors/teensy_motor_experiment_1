@@ -10,10 +10,28 @@ void setup() {
 }
 
 void loop() {
-  MotorA.torque(195); // takes a value from -512 to 512 (< 195 to overcome inertia)
+  int posA = analogRead(A1); // MotorA's sensor, range from 0-1023
+  Serial.print("posA: ");
+  Serial.println(posA);
+  
+  int torqueA = (512 - posA);
+  Serial.print("torqueA: ");
+  Serial.println(torqueA);
+  
+  MotorA.torque(torqueA);
+  
   delay(1000);
-  MotorA.torque(0);
-  delay(2000);
-  MotorA.torque(-512);
-  delay(1000);
+  
+  posA = analogRead(A1);
+  Serial.print("new posA: ");
+  Serial.println(posA);
+  
+  torqueA = (0 - posA);
+  Serial.print("new torqueA: ");
+  Serial.println(posA);
+  
+  MotorA.torque(torqueA);
+  
+  
+  
 }

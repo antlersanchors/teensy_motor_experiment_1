@@ -13,10 +13,13 @@ void setup() {
 
 void loop() {
   
-  p++;
+  p++; 
   
   int posA = analogRead(A1); // MotorA's sensor, range from 0-1023
-  int torqueA = (512 - posA);
+  int posB = analogRead(A9);
+  
+  int torqueA = (posB - posA);
+  int torqueB = (posA - posB);
   
   if (p % 200 == 0) { 
     Serial.print("posA: ");
@@ -25,18 +28,15 @@ void loop() {
     Serial.println(torqueA);
   }
   
-  MotorA.torque(torqueA);
-  
-  posA = analogRead(A1);
-  torqueA = (0 - posA);
-  
   if (p % 200 == 0) { 
-    Serial.print("new posA: ");
-    Serial.println(posA);
-    Serial.print("new torqueA: ");
-    Serial.println(torqueA);
+    Serial.print("posB: ");
+    Serial.println(posB);
+    Serial.print("torqueB: ");
+    Serial.println(torqueB);
   }
   
   MotorA.torque(torqueA);
+  
+  MotorB.torque(torqueB);
    
 }
